@@ -1,0 +1,97 @@
+---
+import Logo from './Logo.astro';
+import Coin from './Coin.astro';
+import FooterJoin from './FooterJoin';
+import { products } from '@/lib/products';
+import { Bell, Code, Heartbeat, GameController, Rocket, ArrowUpRight, InstagramLogo, LinkedinLogo, XLogo } from '@phosphor-icons/react';
+import { social } from '@/lib/site';
+const year = new Date().getFullYear();
+const col = 'label text-green';
+const link = 'text-sm text-ink/80 underline-offset-4 hover:text-green hover:underline';
+const coins = [
+  { I: Bell, tone: 'green', x: 9, y: -34, r: -12 },
+  { I: Code, tone: 'ink', x: 30, y: -58, r: 8 },
+  { I: Heartbeat, tone: 'pistachio', x: 52, y: -30, r: -6 },
+  { I: GameController, tone: 'mist', x: 72, y: -60, r: 10 },
+  { I: Rocket, tone: 'green', x: 90, y: -32, r: -9 },
+] as const;
+const live = products.filter((p) => p.url);
+const socialIcons: Record<string, any> = { InstagramLogo, LinkedinLogo, XLogo };
+const liveIcons: Record<string, any> = { 'campus-update': Bell, 'divaca-health': Heartbeat, playsphere: GameController };
+---
+<footer class="relative overflow-hidden bg-[linear-gradient(180deg,#f7f6f1_0%,#e9f4e3_55%,#dff0d6_100%)]">
+  <div class="wrap grid gap-12 pt-16 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
+    <div>
+      <Logo />
+      <p class="mt-5 max-w-xs text-ink/80">Software for health, school and play. Five products, one company.</p>
+      <div class="mt-6"><FooterJoin client:visible /></div>
+      <div class="mt-6 flex items-center gap-2">
+        <span class="mr-2 text-sm font-semibold">Follow Divaca</span>
+        {social.map((x) => {
+          const I = socialIcons[x.icon];
+          const box = 'grid size-10 place-items-center border border-green/30 bg-white/80 text-green shadow-field';
+          return x.url ? (
+            <a href={x.url} target="_blank" rel="noopener noreferrer" aria-label={`Divaca on ${x.name} (opens in a new tab)`} title={x.name} class={box + ' transition-colors hover:bg-green hover:text-white'}>
+              <I size={18} weight="fill" />
+            </a>
+          ) : (
+            <span role="img" aria-label={`${x.name}, link coming soon`} title={`${x.name}: coming soon`} class={box + ' opacity-60'}>
+              <I size={18} weight="fill" />
+            </span>
+          );
+        })}
+      </div>
+    </div>
+    <div>
+      <h2 class={col}>Products</h2>
+      <ul class="mt-5 space-y-3">
+        {products.map((p) => <li><a class={link} href={`/products/${p.slug}`}>{p.name}</a></li>)}
+      </ul>
+    </div>
+    <div>
+      <h2 class={col}>Company</h2>
+      <ul class="mt-5 space-y-3">
+        <li><a class={link} href="/about">About</a></li>
+        <li><a class={link} href="/partners">Partners and investors</a></li>
+        <li><a class={link} href="/contact">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2 class={col}>Legal</h2>
+      <ul class="mt-5 space-y-3">
+        <li><a class={link} href="/privacy">Privacy</a></li>
+        <li><a class={link} href="/terms">Terms</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="relative mt-16 md:mt-24">
+    <div aria-hidden="true" class="pointer-events-none absolute inset-x-0 top-0 hidden md:block">
+      {coins.map((c, i) => (
+        <div class="absolute" style={`left:${c.x}%;top:${c.y}px;transform:translateX(-50%) rotate(${c.r}deg)`}>
+          <Coin tone={c.tone} size={60} data-reveal="pop" style={`--i:${i * 2 + 3}`}><c.I size={24} weight="duotone" /></Coin>
+        </div>
+      ))}
+    </div>
+    <p aria-hidden="true" data-reveal="wipe" class="pointer-events-none select-none whitespace-nowrap text-center font-extrabold leading-[0.82] tracking-[0.03em] text-transparent [-webkit-text-stroke:0] bg-clip-text bg-[linear-gradient(180deg,#228b22_0%,#105e34_45%,rgba(16,94,52,0.08)_100%)]" style="font-size:clamp(4rem,19vw,17rem)">DIVACA</p>
+  </div>
+
+  <div class="relative border-t border-green/25">
+    <div class="wrap flex flex-col gap-5 py-6 md:flex-row md:items-center md:justify-between">
+      <p class="text-sm text-ink/70">&copy; {year} Divaca. All rights reserved.</p>
+      <div class="flex flex-wrap items-center gap-x-6 gap-y-4">
+      <div class="flex items-center gap-2">
+        <span class="mr-2 text-xs text-ink/60">Open a product</span>
+        {live.map((p) => {
+          const I = liveIcons[p.slug] ?? ArrowUpRight;
+          return (
+            <a href={p.url} target="_blank" rel="noopener noreferrer" aria-label={`${p.name} (opens in a new tab)`} title={p.name} class="grid size-10 place-items-center border border-green/30 bg-white/70 text-green hover:bg-green hover:text-white">
+              <I size={18} weight="duotone" />
+            </a>
+          );
+        })}
+      </div>
+      </div>
+    </div>
+  </div>
+</footer>
