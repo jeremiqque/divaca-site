@@ -1,0 +1,32 @@
+---
+const { level = 3 } = Astro.props;
+const H = `h${level}` as 'h2' | 'h3';
+import { ArrowUpRight, ArrowRight } from '@phosphor-icons/react';
+import { products } from '@/lib/products';
+import ProductArt from './ProductArt.astro';
+const blurb: Record<string, string> = {
+  'campus-update': 'Official school news, urgent alerts, events and the academic calendar, straight to your phone.',
+  'divaca-tech': 'Software built properly for institutions that need it to work. Also the company behind Divaca Health.',
+  'divaca-health': 'Health records that keep working when the power or internet does not. Built for schools, institutions and hospitals.',
+  playsphere: 'Find a tournament, build a team and track your climb, all in one place.',
+  'divaca-innovative-hub': 'Learn tech by building real projects, beside the people you will work with.',
+};
+---
+<ul class="grid gap-6 md:grid-cols-6">
+  {products.map((p, i) => (
+    <li class:list={['md:col-span-2', i > 2 && 'md:col-span-3']}>
+      <a href={`/products/${p.slug}`} class="surface-card group flex h-full flex-col p-2">
+        <ProductArt slug={p.slug} />
+        <div class="flex flex-1 flex-col px-4 pb-4 pt-5">
+          <p class="label text-green">{String(i + 1).padStart(2, '0')} · {p.category}{p.status && <span class="ml-2 bg-mist px-2 py-0.5 text-ink">{p.status}</span>}</p>
+          <H class="mt-2 text-xl font-semibold tracking-tight">{p.name}</H>
+          <p class="mt-2 text-muted">{blurb[p.slug]}</p>
+          <p class="mt-auto flex items-center gap-1.5 pt-5 text-sm font-semibold">
+            {p.url ? 'See the product' : 'Learn more'}
+            <ArrowRight size={16} weight="bold" class="text-green transition-transform group-hover:translate-x-1" />
+          </p>
+        </div>
+      </a>
+    </li>
+  ))}
+</ul>

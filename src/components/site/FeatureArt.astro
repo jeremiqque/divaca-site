@@ -1,0 +1,30 @@
+---
+import { iconMap } from '@/lib/icons';
+import Coin from './Coin.astro';
+interface Props { icon?: string; siblings?: string[]; index?: number }
+const { icon = 'Lightbulb', siblings = [], index = 0 } = Astro.props;
+const Main = iconMap[icon] ?? iconMap.Lightbulb;
+const others = siblings.filter((n) => n !== icon && iconMap[n]);
+const pick = [0, 1, 2].map((k) => others[(index + k) % Math.max(others.length, 1)]).filter(Boolean);
+// satellite positions (% of panel) alternate between cards so no two look identical
+const sets = [[[16, 28], [84, 24], [74, 82]], [[20, 78], [80, 30], [34, 16]], [[84, 70], [14, 34], [58, 14]]];
+const sat = sets[index % 3];
+---
+<div data-tilt class="relative h-44 overflow-hidden bg-mist/70" aria-hidden="true">
+  <svg viewBox="0 0 400 176" preserveAspectRatio="xMidYMid slice" class="absolute inset-0 size-full">
+    <circle cx="200" cy="88" r="52" fill="none" stroke="#105e34" stroke-opacity="0.28" stroke-dasharray="3 5" vector-effect="non-scaling-stroke" />
+    <circle cx="200" cy="88" r="86" fill="none" stroke="#105e34" stroke-opacity="0.16" stroke-dasharray="3 5" vector-effect="non-scaling-stroke" />
+    <circle cx="200" cy="88" r="124" fill="none" stroke="#105e34" stroke-opacity="0.09" vector-effect="non-scaling-stroke" />
+  </svg>
+  <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+    <Coin tone={index % 2 ? 'pistachio' : 'green'} size={72}><Main size={30} weight="duotone" /></Coin>
+  </div>
+  {pick.map((n, k) => {
+    const I = iconMap[n];
+    return (
+      <span class="sat absolute grid size-10 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-line bg-white text-green shadow-card" style={`left:${sat[k][0]}%;top:${sat[k][1]}%`}>
+        <I size={18} weight="duotone" />
+      </span>
+    );
+  })}
+</div>

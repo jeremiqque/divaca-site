@@ -1,0 +1,16 @@
+---
+import { Bell, CalendarCheck, FirstAidKit } from '@phosphor-icons/react';
+const cards = [
+  { I: Bell, t: 'Exam timetable released', s: 'Campus Update', r: '-rotate-3', o: 'translate-x-0' },
+  { I: CalendarCheck, t: 'Bracket is live', s: 'PlaySphere', r: 'rotate-2', o: 'translate-x-6' },
+  { I: FirstAidKit, t: 'Visit recorded', s: 'Divaca Health', r: '-rotate-1', o: '-translate-x-2' },
+];
+---
+<div class="relative flex h-full min-h-72 flex-col justify-center gap-3 overflow-hidden grad-mist px-10 py-12">
+  {cards.map((c) => (
+    <div class={`relative flex items-center gap-3 border border-line bg-white p-3 shadow-card ${c.r} ${c.o}`}>
+      <span class="grid size-9 shrink-0 place-items-center bg-mist text-green"><c.I size={18} weight="duotone" /></span>
+      <span class="text-sm leading-tight"><b class="block font-semibold">{c.t}</b><span class="text-muted">{c.s}</span></span>
+    </div>
+  ))}
+</div>

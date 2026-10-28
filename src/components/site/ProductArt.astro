@@ -1,0 +1,65 @@
+---
+import { SealCheck, Bell, CalendarBlank, Code, GlobeHemisphereWest, DeviceMobile, IdentificationCard, Heartbeat, Stethoscope, WifiSlash, Trophy, UsersThree, Broadcast, Rocket, Lightbulb, GameController, ChartLineUp } from '@phosphor-icons/react';
+const { slug } = Astro.props;
+const pill = 'absolute z-10 flex items-center gap-1.5 whitespace-nowrap border border-line bg-white px-2.5 py-1 text-[11px] font-semibold shadow-sm';
+const card = 'absolute border border-line bg-white shadow-card';
+const bar = 'h-1.5 bg-[#cfe3c5]';
+const coin = 'absolute grid place-items-center rounded-full border border-line bg-white shadow-sm text-green';
+---
+<div class="scene relative h-[230px] overflow-hidden grad-mist" aria-hidden="true">
+  {slug === 'campus-update' && (<>
+    <div class={`${card} s-pop left-[9%] top-[14%] w-[62%] p-3`} style="--s:0">
+      <div class="flex items-center justify-between"><span class="text-[11px] font-bold">Exam timetable released</span><span class="s-pop flex items-center gap-1 bg-mist px-1.5 py-0.5 text-[10px] font-bold text-green" style="--s:2"><SealCheck size={11} weight="fill" /> Official</span></div>
+      <div class={`${bar} mt-2.5 w-full`}></div><div class={`${bar} mt-1.5 w-2/3`}></div>
+    </div>
+    <div class={`${card} s-pop left-[26%] top-[50%] w-[62%] p-3`} style="--s:3">
+      <div class="flex items-center gap-2"><span class="grid size-6 place-items-center bg-green text-white"><Bell size={13} weight="fill" /></span><span class="text-[11px] font-bold">Lecture moved to 2pm</span></div>
+      <div class={`${bar} mt-2.5 w-3/4`}></div>
+    </div>
+    <svg class="s-draw absolute inset-0 size-full" style="--s:2" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M40 36 L40 44 L58 44 L58 50" fill="none" stroke="#105e34" stroke-width="0.6" stroke-dasharray="1.2 1.6" vector-effect="non-scaling-stroke" /></svg>
+    <span class={`${pill} s-pop bottom-[8%] left-[9%]`} style="--s:5"><CalendarBlank size={12} weight="fill" class="text-green" /> Academic calendar</span>
+  </>)}
+  {slug === 'divaca-tech' && (<>
+    <div class={`${card} s-pop left-[10%] top-[14%] w-[56%]`} style="--s:0">
+      <div class="flex gap-1 border-b border-line px-2.5 py-1.5"><span class="size-1.5 rounded-full bg-[#cfe3c5]"></span><span class="size-1.5 rounded-full bg-[#cfe3c5]"></span><span class="size-1.5 rounded-full bg-[#cfe3c5]"></span></div>
+      <div class="space-y-1.5 p-3"><div class={`${bar} s-fill w-1/2 !bg-green/60`} style="--s:2"></div><div class={`${bar} s-fill w-5/6`} style="--s:3"></div><div class={`${bar} s-fill w-2/3`} style="--s:4"></div><div class={`${bar} s-fill w-3/4`} style="--s:5"></div></div>
+    </div>
+    <div class={`${card} s-pop right-[9%] top-[28%] h-[110px] w-[70px] p-2`} style="--s:4"><div class="mx-auto h-1 w-6 bg-[#cfe3c5]"></div><div class={`${bar} mt-3`}></div><div class={`${bar} mt-1.5 w-2/3`}></div><div class="mt-3 grid h-9 place-items-center bg-mist text-green"><DeviceMobile size={18} weight="fill" /></div></div>
+    <span class={`${coin} s-ping bottom-[9%] left-[8%] size-11`} style="--s:6"><Code size={20} weight="bold" /></span>
+    <span class={`${coin} bottom-[9%] left-[24%] size-11`}><GlobeHemisphereWest size={20} weight="bold" /></span>
+    <span class={`${pill} s-pop bottom-[17%] right-[9%]`} style="--s:6">Software for institutions</span>
+  </>)}
+  {slug === 'divaca-health' && (<>
+    <div class={`${card} s-pop left-[8%] top-[10%] w-[52%] p-3`} style="--s:0">
+      <div class="flex items-center gap-2"><span class="grid size-9 place-items-center bg-green text-white"><IdentificationCard size={20} weight="fill" /></span><div class="flex-1"><div class={`${bar} w-3/4`}></div><div class={`${bar} mt-1.5 w-1/2`}></div></div></div>
+      <p class="mt-3 text-[10px] font-semibold uppercase tracking-wider text-muted">Health card</p>
+    </div>
+    <div class={`${card} s-pop right-[8%] top-[50%] w-[50%] p-3`} style="--s:3">
+      <div class="flex items-center gap-2"><Stethoscope size={16} weight="fill" class="text-green" /><span class="text-[11px] font-bold">Visit recorded</span></div>
+      <div class="mt-2.5 flex items-end gap-1">{[10,18,12,24,16,28].map((h, k) => <span class="s-grow w-2 bg-green/70" style={`height:${h}px;--s:${4 + k * 0.3}`}></span>)}</div>
+    </div>
+    <svg class="s-draw absolute inset-0 size-full" style="--s:2" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M34 46 L34 66 L50 66" fill="none" stroke="#105e34" stroke-width="0.6" stroke-dasharray="1.2 1.6" vector-effect="non-scaling-stroke" /></svg>
+    <span class={`${pill} s-pop left-[8%] bottom-[9%]`} style="--s:6"><WifiSlash size={12} weight="bold" class="text-green" /> Works offline</span>
+    <span class={`${coin} s-ping right-[10%] top-[10%] size-10`} style="--s:5"><Heartbeat size={20} weight="fill" /></span>
+  </>)}
+  {slug === 'playsphere' && (<>
+    <svg class="s-draw absolute inset-0 size-full" style="--s:1" viewBox="0 0 100 100" preserveAspectRatio="none">
+      <g fill="none" stroke="#105e34" stroke-width="0.7" vector-effect="non-scaling-stroke" stroke-linejoin="round">
+        <path d="M12 22 H26 V38 H40" /><path d="M12 54 H26 V38" /><path d="M12 70 H26 V86 H40" /><path d="M12 102 H26 V86" />
+        <path d="M40 38 H54 V62 H66" /><path d="M40 86 H54 V62" />
+      </g>
+    </svg>
+    {[[8,18],[8,50],[8,66],[8,82]].map(([x,y], k) => <span class="s-pop absolute h-5 w-12 border border-line bg-white shadow-sm" style={`left:${x}%;top:${y}%;--s:${k * 0.4}`}></span>)}
+    <span class={`${coin} s-ping right-[12%] top-[34%] size-16 !bg-green !text-white`} style="--s:4"><Trophy size={30} weight="fill" /></span>
+    <span class={`${pill} s-pop right-[8%] top-[12%]`} style="--s:5"><Broadcast size={12} weight="fill" class="text-green" /> Live stream</span>
+    <span class={`${pill} s-pop right-[10%] bottom-[10%]`} style="--s:6"><UsersThree size={12} weight="fill" class="text-green" /> Teams</span>
+  </>)}
+  {slug === 'divaca-innovative-hub' && (<>
+    <svg class="s-draw absolute inset-0 size-full" style="--s:2" viewBox="0 0 100 100" preserveAspectRatio="none"><g fill="none" stroke="#105e34" stroke-width="0.6" stroke-dasharray="1.2 1.6" vector-effect="non-scaling-stroke"><path d="M24 24 Q36 24 44 42" /><path d="M76 24 Q64 24 56 42" /><path d="M24 78 Q36 78 44 58" /><path d="M76 78 Q64 78 56 58" /></g></svg>
+    <span class={`${coin} s-ping left-1/2 top-1/2 size-16 -translate-x-1/2 -translate-y-1/2 !bg-green !text-white`}><Rocket size={30} weight="fill" /></span>
+    <span class={`${pill} s-pop left-[6%] top-[14%]`} style="--s:3">Product</span>
+    <span class={`${pill} s-pop right-[6%] top-[14%]`} style="--s:4">UI/UX design</span>
+    <span class={`${pill} s-pop left-[6%] bottom-[14%]`} style="--s:5">Development</span>
+    <span class={`${pill} s-pop right-[6%] bottom-[14%]`} style="--s:6">Data analysis</span>
+  </>)}
+</div>

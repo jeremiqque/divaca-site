@@ -1,0 +1,50 @@
+---
+import Eyebrow from '@/components/site/Eyebrow.astro';
+import { ArrowRight, Bell, Code, Heartbeat, GameController, Rocket } from '@phosphor-icons/react';
+import Coin from './Coin.astro';
+const items = [
+  { I: Bell, tone: 'green', a: 168 },
+  { I: Code, tone: 'ink', a: 128 },
+  { I: Heartbeat, tone: 'pistachio', a: 90 },
+  { I: GameController, tone: 'mist', a: 52 },
+  { I: Rocket, tone: 'green', a: 12 },
+] as const;
+const W = 1000, H = 330, cx = 500, cy = 330, rx = 470, ry = 290;
+const pos = items.map((it) => { const r = (it.a * Math.PI) / 180; return { ...it, x: ((cx + rx * Math.cos(r)) / W) * 100, y: ((cy - ry * Math.sin(r)) / H) * 100 }; });
+---
+<section class="scene grad-mist overflow-hidden pt-16 pb-20 md:pt-24 md:pb-28">
+  <div class="wrap">
+    <div class="relative mx-auto hidden max-w-4xl md:block" style={`aspect-ratio:${W}/${H}`}>
+      <svg viewBox={`0 0 ${W} ${H}`} class="absolute inset-0 size-full" preserveAspectRatio="none" aria-hidden="true">
+        <path class="dash-flow" d={`M ${cx - rx} ${cy} A ${rx} ${ry} 0 0 1 ${cx + rx} ${cy}`} fill="none" stroke="#105e34" stroke-opacity="0.35" stroke-width="1.5" stroke-dasharray="3 6" vector-effect="non-scaling-stroke" />
+        <path d={`M ${cx - rx + 90} ${cy} A ${rx - 90} ${ry - 80} 0 0 1 ${cx + rx - 90} ${cy}`} fill="none" stroke="#105e34" stroke-opacity="0.15" stroke-width="1.5" vector-effect="non-scaling-stroke" />
+        {[0, -4.5].map((b) => (
+          <circle r="5" fill="#228b22" opacity="0.9">
+            <animateMotion dur="9s" begin={`${b}s`} repeatCount="indefinite" path={`M ${cx - rx} ${cy} A ${rx} ${ry} 0 0 1 ${cx + rx} ${cy}`} />
+          </circle>
+        ))}
+      </svg>
+      {pos.map((p, i) => (
+        <div class="absolute -translate-x-1/2 -translate-y-1/2" style={`left:${p.x}%;top:${p.y}%`}>
+          <Coin tone={p.tone} size={64} class="float-y coin-hover" data-reveal="pop" style={`--i:${i * 2}`}><p.I size={26} weight="duotone" /></Coin>
+        </div>
+      ))}
+      <div class="absolute inset-x-0 bottom-0 mx-auto max-w-xl text-center">
+        <p><Eyebrow icon="Handshake">Partners and investors</Eyebrow></p>
+        <h2 class="h-section mt-3">Work with Divaca.</h2>
+      </div>
+    </div>
+    <div class="md:hidden">
+      <div class="mb-6 flex justify-center gap-2">{items.map((it, i) => <Coin tone={it.tone} size={44} class="float-y" style={`--i:${i}`}><it.I size={18} weight="duotone" /></Coin>)}</div>
+      <p class="text-center"><Eyebrow icon="Handshake">Partners and investors</Eyebrow></p>
+      <h2 class="h-section mt-3 text-center">Work with Divaca.</h2>
+    </div>
+    <p class="mx-auto mt-8 max-w-xl text-center text-lg">We are open to partnerships with schools, healthcare providers, brands and technology teams, and to conversations with investors.</p>
+    <div class="mt-8 flex justify-center">
+      <a href="/partners" class="btn group inline-flex items-center gap-3 bg-ink py-1.5 pr-1.5 pl-5 text-sm font-semibold text-white shadow-btn">
+        Talk to us about partnering
+        <span class="grid size-9 place-items-center bg-pistachio text-ink"><ArrowRight size={16} weight="bold" class="transition-transform group-hover:translate-x-0.5" /></span>
+      </a>
+    </div>
+  </div>
+</section>
