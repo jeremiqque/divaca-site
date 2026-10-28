@@ -1,0 +1,54 @@
+---
+import '@/styles/global.css';
+import Navbar from '@/components/site/Navbar';
+import Footer from '@/components/site/Footer.astro';
+import { ClientRouter } from 'astro:transitions';
+
+interface Props { title?: string; description?: string; image?: string }
+const { title = 'Divaca', description = 'Divaca builds software for health, school and play.', image = '/og.png' } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL(image, Astro.site).href;
+const ld = JSON.stringify({ '@context': 'https://schema.org', '@type': 'Organization', name: 'Divaca', url: Astro.site?.href, description: 'Divaca builds software for health, school and play.' });
+const pathname = Astro.url.pathname;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#105e34" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Divaca" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Divaca: useful software for health, school and play" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="canonical" href={canonical} />
+    <script type="application/ld+json" set:html={ld}></script>
+    <link rel="preload" href="/fonts/GalanoGrotesqueRegular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/GalanoGrotesqueExtraBold.woff2" as="font" type="font/woff2" crossorigin />
+    <title>{title}</title>
+    <script is:inline>document.documentElement.classList.add('js')</script>
+    <ClientRouter />
+  </head>
+  <body>
+    <div class="rails" aria-hidden="true"></div>
+    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded focus:bg-ink focus:px-4 focus:py-2 focus:text-white">Skip to content</a>
+    <Navbar client:load transition:persist="site-nav" pathname={pathname} />
+    <main id="main"><slot /></main>
+    <Footer />
+    <script>import '@/scripts/motion';</script>
+  </body>
+</html>
