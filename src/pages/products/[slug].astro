@@ -1,0 +1,204 @@
+---
+import Eyebrow from '@/components/site/Eyebrow.astro';
+import Coin from '@/components/site/Coin.astro';
+import Icon from '@/components/site/Icon.astro';
+import FeatureArt from '@/components/site/FeatureArt.astro';
+import Layout from '@/layouts/Layout.astro';
+import ProductDemos from '@/components/demos/ProductDemos';
+import Faq from '@/components/site/Faq';
+import SignupForm from '@/components/site/SignupForm';
+import { buttonVariants } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
+import { ArrowLeft, ArrowRight, ArrowUpRight } from '@phosphor-icons/react';
+import { products } from '@/lib/products';
+
+export function getStaticPaths() {
+  return products.map((product) => ({ params: { slug: product.slug }, props: { product } }));
+}
+const { product } = Astro.props;
+const d = product.detail;
+const others = products.filter((p) => p.slug !== product.slug);
+const factIcon = (l: string) => /who/i.test(l) ? 'UsersThree' : /where/i.test(l) ? 'MapPin' : /mobile/i.test(l) ? 'DeviceMobile' : /industry/i.test(l) ? 'Buildings' : /backs/i.test(l) ? 'Handshake' : /founded/i.test(l) ? 'Lightbulb' : 'Clock';
+
+const productIcons: Record<string, string> = { 'campus-update': 'BellRinging', 'divaca-tech': 'Code', 'divaca-health': 'Heartbeat', playsphere: 'GameController', 'innovative-hub': 'Rocket' };
+const productIcon = productIcons[product.slug] ?? 'Rocket';
+---
+<Layout title={`${product.name} | Divaca`} description={`${product.name}: ${product.tagline}`}>
+  <section class="rule-b border-b border-line pb-14 pt-10 md:pb-20 md:pt-14">
+    <div class="wrap">
+      <a href="/products" class="inline-flex items-center gap-2 text-sm font-semibold text-muted hover:text-green"><ArrowLeft size={14} weight="bold" /> All products</a>
+      <p class="mt-10"><Eyebrow icon="Package">{product.number} · {product.category}</Eyebrow></p>
+      <h1 class="display mt-4">{product.name}<span class="text-green">.</span></h1>
+      <p class="mt-6 max-w-2xl text-lg">{product.tagline}</p>
+      <div class="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
+        {product.url ? (
+          <a href={product.url} target="_blank" rel="noopener noreferrer" class={buttonVariants({ size: 'lg' })}>{product.slug === 'divaca-health' ? 'Request early access' : `Visit ${product.name}`} <ArrowUpRight weight="bold" /><span class="sr-only">(opens in a new tab)</span></a>
+        ) : (
+          <a href="#updates" class={buttonVariants({ size: 'lg' })}>Talk to us about {product.name}</a>
+        )}
+        {product.url && <a href="#updates" class="font-semibold underline decoration-2 underline-offset-8 hover:text-green">{product.slug === 'campus-update' ? 'Bring it to your school' : 'Get updates'}</a>}
+      </div>
+    </div>
+  </section>
+
+  {d ? (
+    <>
+      <section class="border-b border-line py-16 md:py-24">
+        <div class="wrap">
+          <div class="mb-8 grid gap-6 md:grid-cols-[1fr_2fr] md:gap-12">
+            <p><Eyebrow icon="CursorClick">Try it</Eyebrow></p>
+            <h2 class="h-section">Try {product.name}.</h2>
+          </div>
+          <ProductDemos client:visible only={product.slug} />
+        </div>
+      </section>
+
+      <section class="py-16 md:py-20">
+        <div class="wrap">
+          <ul class="surface-card grid divide-y divide-line md:grid-cols-3 md:divide-x md:divide-y-0">
+            {d.facts.map((f, i) => (
+              <li class="p-6 md:p-8">
+                <div class="flex items-center justify-between">
+                  <Coin tone={['green', 'pistachio', 'ink'][i % 3] as any} size={52}><Icon name={factIcon(f.label)} size={22} bare /></Coin>
+                  <span class="flex gap-1" aria-hidden="true">
+                    {[0, 1, 2].map((k) => <span class:list={['h-5 w-1', k === i % 3 ? 'bg-green' : 'bg-line']}></span>)}
+                  </span>
+                </div>
+                <p class="label mt-6 text-muted">{f.label}</p>
+                <p class="mt-2 text-xl font-semibold leading-snug tracking-tight">{f.value}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section class="scene grad-green relative overflow-hidden py-24 text-white md:py-32">
+        <div aria-hidden="true" class="pointer-events-none absolute -right-24 top-1/2 hidden -translate-y-1/2 md:block">
+          <svg viewBox="0 0 480 480" class="size-[30rem]">
+            <g class="ring-spin" style="--rs:200s"><circle cx="240" cy="240" r="120" fill="none" stroke="#fff" stroke-opacity="0.26" stroke-dasharray="3 6" /></g>
+            <g class="ring-spin" style="--rs:280s;animation-direction:reverse"><circle cx="240" cy="240" r="180" fill="none" stroke="#fff" stroke-opacity="0.18" stroke-dasharray="3 6" /></g>
+            <circle cx="240" cy="240" r="235" fill="none" stroke="#fff" stroke-opacity="0.08" />
+          </svg>
+          <span class="ripple absolute left-1/2 top-1/2 size-24 rounded-full border border-white/40" style="--d:0s"></span>
+          <span class="ripple absolute left-1/2 top-1/2 size-24 rounded-full border border-white/40" style="--d:3.5s"></span>
+          <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"><Coin tone="pistachio" size={96} class="breathe"><Icon name={productIcon} size={40} bare /></Coin></div>
+          {d.features.slice(0, 3).map((f, i) => (
+            <div class="orbit" style={`--r:${[120, 180, 235][i]}px;--a:${[-70, 35, 150][i]}deg;--dur:${[80, 120, 160][i]}s;--dir:${i === 1 ? 'reverse' : 'normal'}`}>
+              <span class="orbit-sat grid size-12 place-items-center rounded-full bg-white text-green shadow-card"><Icon name={f.icon ?? 'Lightbulb'} size={22} bare /></span>
+            </div>
+          ))}
+        </div>
+        <div class="wrap relative z-10 grid gap-6 md:grid-cols-[1fr_2fr] md:gap-12">
+          <p><Eyebrow icon="Lightbulb" dark>Why it exists</Eyebrow></p>
+          <div class="md:max-w-xl">
+            <h2 class="h-section">{d.problem.title}</h2>
+            <p class="mt-7 text-lg text-white/85">{d.problem.text}</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-24 md:py-32">
+        <div class="wrap">
+          <p><Eyebrow icon="Lightning">What it does</Eyebrow></p>
+          <h2 class="h-section mt-5">{(d.featuresTitle ?? ['Built to be trusted.', 'Made to be used.'])[0]} <span class="text-ink/50">{(d.featuresTitle ?? ['Built to be trusted.', 'Made to be used.'])[1]}</span></h2>
+          <ul class:list={['mt-12 grid gap-5 sm:grid-cols-2', d.features.length % 3 === 0 && 'lg:grid-cols-3']}>
+            {d.features.map((f, i) => (
+              <li class="surface-card overflow-hidden p-2">
+                <FeatureArt icon={f.icon} siblings={d.features.map((x) => x.icon ?? '')} index={i} />
+                <div class="p-5 md:p-6">
+                  <div class="flex items-center justify-between">
+                    <p class="label text-muted">{String(i + 1).padStart(2, '0')}</p>
+                    <span class="flex gap-1" aria-hidden="true">{[0, 1, 2].map((k) => <span class:list={['h-3.5 w-1', k === i % 3 ? 'bg-green' : 'bg-line']}></span>)}</span>
+                  </div>
+                  <h3 class="mt-4 text-xl font-semibold tracking-tight">{f.title}</h3>
+                  <p class="mt-2 text-muted">{f.text}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {d.steps && (
+      <section class="border-t border-line py-24 md:py-32">
+        <div class="wrap grid gap-10 md:grid-cols-[1fr_1.4fr] md:gap-16">
+          <div class="md:sticky md:top-28 md:self-start">
+            <p><Eyebrow icon="GearSix">How it works</Eyebrow></p>
+            <h2 class="h-section mt-4">{d.stepsTitle ?? 'Four steps, start to finish.'}</h2>
+          </div>
+          <ol class="surface-card relative p-6 md:p-10">
+            <span aria-hidden="true" data-reveal="draw" class="absolute bottom-14 left-[3.1rem] top-14 w-px border-l border-dashed border-green/40 md:left-[4.1rem]"></span>
+            {d.steps.map((s, i) => (
+              <li class="relative flex gap-5 py-5 first:pt-0 last:pb-0 md:gap-7">
+                <Coin tone={i === d.steps.length - 1 ? 'pistachio' : 'green'} size={56} class="shrink-0" data-reveal="pop" style={`--i:${i * 3 + 2}`}><span class="text-lg font-bold">{i + 1}</span></Coin>
+                <div class="pt-2">
+                  <p class="text-xl font-bold tracking-tight">{s.title}</p>
+                  <p class="mt-1 text-muted">{s.text}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+      )}
+
+      {d.faqs && (
+      <section class="border-t border-line py-24 md:py-32">
+        <div class="wrap grid gap-6 md:grid-cols-[1fr_2fr] md:gap-12">
+          <div>
+            <p><Eyebrow icon="Question">Questions</Eyebrow></p>
+            <h2 class="h-section mt-4">Good to <span class="text-ink/50">know.</span></h2>
+            <a href="#updates" class="surface-card mt-8 flex items-center gap-4 p-4">
+              <Icon name="ChatsCircle" />
+              <span class="text-sm"><b class="block font-semibold">Something else?</b><span class="text-muted">Ask us below.</span></span>
+              <ArrowRight size={16} weight="bold" class="ml-auto shrink-0 text-green" />
+            </a>
+          </div>
+          <Faq client:visible items={d.faqs} />
+        </div>
+      </section>
+      )}
+    </>
+  ) : null}
+
+  <section id="updates" class="py-24 md:py-32">
+    <div class="wrap">
+      <div class="surface-card grid overflow-hidden md:grid-cols-[2fr_3fr]">
+        <div class="grad-mist relative p-8 md:p-10">
+          <div class="dots pointer-events-none absolute inset-0"></div>
+          <div class="relative">
+            <Coin tone="green" size={64}><Icon name={productIcon} size={26} bare /></Coin>
+            <p class="mt-8"><Eyebrow icon="ChatCircleDots">Get in touch</Eyebrow></p>
+            <h2 class="h-section mt-3">Questions about {product.name}?</h2>
+            <p class="mt-4 text-muted">Ask a question or ask to be told when there is news. We reply by email.</p>
+          </div>
+        </div>
+        <div class="p-6 md:p-10"><SignupForm client:visible kind="updates" defaultInterest={product.slug} bare /></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pb-24 md:pb-32">
+    <div class="wrap">
+      <div class="flex items-end justify-between gap-6">
+        <div><p><Eyebrow icon="Stack">Other products</Eyebrow></p><h2 class="h-section mt-3">More from Divaca.</h2></div>
+        <a href="/products" class="hidden items-center gap-2 text-sm font-semibold hover:text-green sm:inline-flex">All products <ArrowRight size={14} weight="bold" /></a>
+      </div>
+      <ul class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {others.map((p) => (
+          <li>
+            <a href={`/products/${p.slug}`} class="surface-card group flex h-full flex-col p-5">
+              <div class="flex items-start justify-between">
+                <Coin tone={['green', 'pistachio', 'ink', 'mist'][Number(p.number) % 4] as any} size={56}><Icon name={productIcons[p.slug] ?? 'Rocket'} size={22} bare /></Coin>
+                <span class="label text-muted">{p.number}</span>
+              </div>
+              <h3 class="mt-6 text-lg font-bold tracking-tight">{p.name}</h3>
+              <p class="mt-1 text-sm text-muted">{p.tagline}</p>
+              <span class="mt-auto inline-flex items-center gap-1.5 pt-5 text-sm font-semibold text-green">Learn more <ArrowRight size={14} weight="bold" class="transition-transform group-hover:translate-x-1" /></span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</Layout>

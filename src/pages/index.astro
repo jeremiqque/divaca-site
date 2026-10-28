@@ -1,0 +1,79 @@
+---
+import Eyebrow from '@/components/site/Eyebrow.astro';
+import ProductDemos from '@/components/demos/ProductDemos';
+import SectionDivider from '@/components/site/SectionDivider.astro';
+import Layout from '@/layouts/Layout.astro';
+import Hero from '@/components/site/Hero.astro';
+import ProductGrid from '@/components/site/ProductGrid.astro';
+import CampusSpotlight from '@/components/site/CampusSpotlight.astro';
+import Approach from '@/components/site/Approach.astro';
+import PartnerBand from '@/components/site/PartnerBand.astro';
+import Faq from '@/components/site/Faq';
+import SignupForm from '@/components/site/SignupForm';
+import NotifyArt from '@/components/site/NotifyArt.astro';
+import Icon from '@/components/site/Icon.astro';
+import { ArrowRight } from '@phosphor-icons/react';
+
+const faqs = [
+  { q: 'What does Divaca make?', a: 'Five products: Campus Update for school news, Divaca Tech for software, Divaca Health for digital health records, PlaySphere for esports and Divaca Innovative Hub for learning by building.' },
+  { q: 'How can I partner with Divaca?', a: 'Use the Partners page to tell us who you are and what you have in mind. We reply to every enquiry.' },
+  { q: 'I am an investor. Where do I start?', a: 'Write to us through the Partners page and choose "An investor". We will reply with an overview of the company and its products.' },
+  { q: 'Does Divaca build software for other organisations?', a: 'Divaca Tech is the software division. If you have a project in mind, contact us and we will tell you whether we can help.' },
+];
+---
+<Layout title="Divaca | Software for health, school and play" description="Five products from one team: verified campus news, offline-ready health records, esports tournaments and more. Campus Update is piloting at FOCIT.">
+  <Hero />
+  <section id="products" class="py-24 md:py-32">
+    <div class="wrap">
+      <div class="grid gap-6 md:grid-cols-[1fr_2fr] md:gap-12">
+        <p><Eyebrow icon="SquaresFour">Products</Eyebrow></p>
+        <h2 class="h-section">Five products. <span class="text-ink/50">Each fixes one thing properly.</span></h2>
+      </div>
+      <div class="mt-12"><ProductGrid /></div>
+    </div>
+  </section>
+  <section id="try" class="border-t border-line py-24 md:py-32">
+    <div class="wrap">
+      <div class="grid gap-6 md:grid-cols-[1fr_2fr] md:gap-12">
+        <p><Eyebrow icon="CursorClick">Try it</Eyebrow></p>
+        <div>
+          <h2 class="h-section">Don't just read about it. <span class="text-ink/50">Click around.</span></h2>
+          <p class="mt-5 max-w-xl text-lg text-muted">Small working versions of each product, using sample data.</p>
+        </div>
+      </div>
+      <div class="mt-10"><ProductDemos client:visible /></div>
+    </div>
+  </section>
+  <CampusSpotlight />
+  <SectionDivider />
+  <Approach />
+  <PartnerBand />
+  <SectionDivider />
+  <section class="py-24 md:py-32">
+    <div class="wrap grid gap-10 md:grid-cols-[1fr_2fr] md:gap-12">
+      <div>
+        <p><Eyebrow icon="Question">Questions</Eyebrow></p>
+        <h2 class="h-section mt-4">Before <span class="text-ink/50">you ask.</span></h2>
+        <a href="/contact" class="surface-card mt-8 flex items-center gap-4 p-4">
+          <Icon name="ChatsCircle" />
+          <span class="text-sm"><b class="block font-semibold">Still have a question?</b><span class="text-muted">Write to us. We reply.</span></span>
+          <ArrowRight size={16} weight="bold" class="ml-auto shrink-0 text-green" />
+        </a>
+      </div>
+      <Faq client:visible items={faqs} />
+    </div>
+  </section>
+  <section id="updates" class="pb-24 md:pb-32">
+    <div class="wrap">
+      <div class="surface-card grid overflow-hidden md:grid-cols-2">
+        <NotifyArt />
+        <div class="p-6 md:p-10">
+          <p><Eyebrow icon="BellRinging">Updates</Eyebrow></p>
+          <h2 class="h-section mt-3">Get news <span class="text-ink/50">from Divaca.</span></h2>
+          <p class="mt-4 mb-8 text-muted">Pick a product, or all of them. We write when there is something worth saying.</p>
+          <SignupForm client:visible kind="updates" bare />
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

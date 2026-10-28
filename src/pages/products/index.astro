@@ -1,0 +1,19 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import ProductGrid from '@/components/site/ProductGrid.astro';
+import PartnerBand from '@/components/site/PartnerBand.astro';
+---
+<Layout title="Products | Divaca" description="The five Divaca products: Campus Update, Divaca Tech, Divaca Health, PlaySphere and Divaca Innovative Hub.">
+  <section class="border-b border-line pb-14 pt-16 md:pb-16 md:pt-24">
+    <div class="wrap">
+      <h1 class="display text-green">Products</h1>
+      <p class="mt-8 max-w-xl text-lg">Five products from one team. Open any of them to see what it does and who it is for.</p>
+    </div>
+  </section>
+  <section id="products" class="py-20 md:py-28">
+    <div class="wrap">
+      <ProductGrid level={2} />
+    </div>
+  </section>
+  <PartnerBand />
+</Layout>
