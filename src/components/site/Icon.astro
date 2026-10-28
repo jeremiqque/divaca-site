@@ -1,0 +1,7 @@
+---
+import { iconMap as map } from '@/lib/icons';
+const { name, size = 22, class: cls = '', bare = false } = Astro.props;
+const C = map[name];
+---
+{C && bare && <C size={size} weight="duotone" />}
+{C && !bare && <span class:list={['grid size-11 place-items-center bg-mist text-green', cls]} aria-hidden="true"><C size={size} weight="duotone" /></span>}

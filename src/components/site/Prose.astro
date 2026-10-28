@@ -1,0 +1,16 @@
+---
+const { title, updated } = Astro.props;
+---
+<section class="border-b border-line pb-12 pt-16 md:pt-24">
+  <div class="wrap">
+    <h1 class="h-section text-green" style="font-size: clamp(2.5rem, 6vw, 5rem)">{title}</h1>
+    <p class="mt-4 text-muted">Last updated {updated}</p>
+  </div>
+</section>
+<section class="py-16 md:py-24">
+  <div class="wrap">
+    <div class="max-w-2xl space-y-5 text-lg text-ink/90 [&_h2]:mt-12 [&_h2]:text-2xl [&_h2]:font-bold [&_li]:ml-5 [&_li]:list-disc [&_a]:font-semibold [&_a]:underline [&_a]:underline-offset-4">
+      <slot />
+    </div>
+  </div>
+</section>

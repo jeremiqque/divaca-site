@@ -1,0 +1,7 @@
+---
+// Interim wordmark (text only). The brand guide forbids re-creating the logo in another
+// typeface, so replace this with the official logo SVG: save it as /public/logo.svg
+// and swap the <span> below for <img src="/logo.svg" alt="Divaca" class="h-6 w-auto" />.
+const { light = false, class: cls = '' } = Astro.props;
+---
+<a href="/" aria-label="Divaca, home" class:list={['text-xl font-extrabold tracking-[0.2em]', light ? 'text-white' : 'text-green', cls]}>DIVACA</a>
