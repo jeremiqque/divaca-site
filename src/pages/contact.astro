@@ -1,0 +1,34 @@
+---
+import Eyebrow from '@/components/site/Eyebrow.astro';
+import Layout from '@/layouts/Layout.astro';
+import PageHeader from '@/components/site/PageHeader.astro';
+import SignupForm from '@/components/site/SignupForm';
+import Icon from '@/components/site/Icon.astro';
+import { ArrowRight } from '@phosphor-icons/react';
+const links = [
+  { icon: 'Handshake', t: 'Partnerships and investment', s: 'Schools, clinics, brands, technology teams and investors.', href: '/partners' },
+  { icon: 'Rocket', t: 'The products', s: 'See what each product does, and try it.', href: '/products' },
+  { icon: 'Buildings', t: 'About Divaca', s: 'Who we are and how we build.', href: '/about' },
+];
+---
+<Layout title="Contact | Divaca" description="Write to the Divaca team about our products, partnerships or investment. A person reads every message.">
+  <PageHeader title="Contact" intro="Questions, partnerships or ideas. Tell us what you need and a real person will reply by email." />
+  <section class="py-16 md:py-24">
+    <div class="wrap grid gap-8 md:grid-cols-[2fr_3fr] md:gap-12">
+      <div class="grid content-start gap-4">
+        <p><Eyebrow icon="MagnifyingGlass">Know what you need?</Eyebrow></p>
+        {links.map((l) => (
+          <a href={l.href} class="surface-card flex items-center gap-4 p-4">
+            <Icon name={l.icon} />
+            <span class="text-sm"><b class="block font-semibold">{l.t}</b><span class="text-muted">{l.s}</span></span>
+            <ArrowRight size={16} weight="bold" class="ml-auto shrink-0 text-green" />
+          </a>
+        ))}
+      </div>
+      <div class="surface-card overflow-hidden">
+        <div class="grad-mist relative border-b border-line px-6 py-5 md:px-8"><div class="dots pointer-events-none absolute inset-0"></div><p class="relative text-lg font-semibold">Write to the team</p><p class="relative text-sm text-muted">A person reads every message.</p></div>
+        <div class="p-6 md:p-8"><SignupForm client:visible kind="contact" bare /></div>
+      </div>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,29 @@
+---
+import Eyebrow from '@/components/site/Eyebrow.astro';
+import Layout from '@/layouts/Layout.astro';
+import PageHeader from '@/components/site/PageHeader.astro';
+import Approach from '@/components/site/Approach.astro';
+import ProductGrid from '@/components/site/ProductGrid.astro';
+---
+<Layout title="About | Divaca" description="Divaca is a technology company building practical software for health, school and play, starting with the problems close to home.">
+  <PageHeader title="About Divaca" intro="We build practical software for the places people spend their days: the clinic, the campus and the game." />
+  <section class="py-24 md:py-32">
+    <div class="wrap">
+      <p><Eyebrow icon="Hammer">What we make</Eyebrow></p>
+      <div class="mt-5">
+        <p class="max-w-2xl text-lg text-ink/85">Five products, five groups of people, one team and one standard. Each product starts with a real problem and stays small enough to do one thing properly.</p>
+        <div class="mt-10"><ProductGrid level={2} /></div>
+      </div>
+    </div>
+  </section>
+  <div class="border-t border-line"><Approach /></div>
+  <section class="grad-mist py-20 md:py-28">
+    <div class="wrap grid gap-6 md:grid-cols-[1fr_2fr] md:gap-12">
+      <p><Eyebrow icon="ChatCircleDots">Get in touch</Eyebrow></p>
+      <div>
+        <h2 class="h-section">Want to know more, or work with us?</h2>
+        <a href="/contact" class="mt-8 inline-block border-b-2 border-ink pb-1 text-xl font-semibold tracking-tight hover:border-green hover:text-green">Talk to the team</a>
+      </div>
+    </div>
+  </section>
+</Layout>

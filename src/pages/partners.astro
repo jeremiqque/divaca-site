@@ -1,0 +1,71 @@
+---
+import Eyebrow from '@/components/site/Eyebrow.astro';
+import Coin from '@/components/site/Coin.astro';
+import { ArrowDown } from '@phosphor-icons/react';
+import Icon from '@/components/site/Icon.astro';
+import Layout from '@/layouts/Layout.astro';
+import PageHeader from '@/components/site/PageHeader.astro';
+import SignupForm from '@/components/site/SignupForm';
+
+const who = [
+  { icon: 'GraduationCap', title: 'Schools and universities', text: 'Bring Campus Update to your institution. We are piloting it with the Computer Science department at FOCIT.' },
+  { icon: 'FirstAid', title: 'Healthcare providers', text: 'Early access to Divaca Health is open. Talk to us about using it with your patients.' },
+  { icon: 'Megaphone', title: 'Brands and sponsors', text: 'Reach students and communities through Divaca products.' },
+  { icon: 'Code', title: 'Technology teams', text: 'Collaborate with Divaca Tech on products and platforms.' },
+];
+---
+<Layout title="Partners and investors | Divaca" description="Partner with Divaca or talk to us about investing.">
+  <PageHeader title="Partners and investors" intro="We are open to partnerships and to conversations with investors. Tell us who you are and what you have in mind." />
+  <section class="py-24 md:py-32">
+    <div class="wrap">
+      <div class="grid gap-6 md:grid-cols-[1fr_2fr] md:gap-12">
+        <p><Eyebrow icon="Handshake">Partners</Eyebrow></p>
+        <h2 class="h-section">Who we <span class="text-ink/50">work with.</span></h2>
+      </div>
+      <ul class="rule-b mt-14 grid border-y border-line sm:grid-cols-2 lg:grid-cols-4">
+        {who.map((w, i) => (
+          <li class="relative border-line p-7 sm:odd:border-r lg:border-r lg:last:border-r-0 [&:nth-child(-n+2)]:sm:border-b lg:[&:nth-child(-n+2)]:border-b-0">
+            <div class="flex items-start justify-between">
+              <Coin tone={['green', 'pistachio', 'ink', 'mist'][i] as any} size={64}><Icon name={w.icon} size={24} bare /></Coin>
+              <span class="text-xs font-bold tracking-widest text-green">{String(i + 1).padStart(2, '0')}</span>
+            </div>
+            <h3 class="mt-8 text-lg font-semibold tracking-tight">{w.title}</h3>
+            <p class="mt-3 text-sm text-muted">{w.text}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+  <section id="investors" class="pb-24 md:pb-32">
+    <div class="wrap">
+      <div class="grad-green relative overflow-hidden p-8 text-white md:p-14">
+        <div class="grid items-center gap-8 md:grid-cols-[1fr_auto]">
+          <div class="max-w-2xl">
+            <p><Eyebrow icon="ChartLineUp" dark>Investors</Eyebrow></p>
+            <h2 class="h-section mt-4">Considering an investment?</h2>
+            <p class="mt-5 text-lg text-white/85">Use the form below and choose "An investor". We will reply with an overview of Divaca, its products and its plans.</p>
+          </div>
+          <a href="#enquiry" class="group inline-flex items-center gap-3 justify-self-start bg-white py-1.5 pr-1.5 pl-5 text-sm font-semibold text-ink md:justify-self-end">
+            Request the investor overview
+            <span class="grid size-9 place-items-center bg-pistachio"><ArrowDown size={16} weight="bold" class="transition-transform group-hover:translate-y-0.5" /></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="enquiry" class="pb-24 md:pb-32">
+    <div class="wrap">
+      <div class="surface-card grid overflow-hidden md:grid-cols-[2fr_3fr]">
+        <div class="grad-mist relative p-8 md:p-10">
+          <div class="dots pointer-events-none absolute inset-0"></div>
+          <div class="relative">
+            <p><Eyebrow icon="PaperPlaneTilt">Write to us</Eyebrow></p>
+            <h2 class="h-section mt-3">Tell us what you have in mind.</h2>
+            <p class="mt-4 text-muted">Schools, clinics, brands, technology teams and investors are all welcome. We reply to every enquiry by email.</p>
+          </div>
+        </div>
+        <div class="p-6 md:p-10"><SignupForm client:visible kind="partner" bare /></div>
+      </div>
+    </div>
+  </section>
+</Layout>
