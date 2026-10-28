@@ -1,0 +1,18 @@
+---
+import Eyebrow from '@/components/site/Eyebrow.astro';
+import Layout from '@/layouts/Layout.astro';
+import { buttonVariants } from '@/components/ui/button';
+---
+<Layout title="Page not found | Divaca">
+  <section class="py-24 md:py-40">
+    <div class="wrap">
+      <p><Eyebrow icon="WarningCircle">Error 404</Eyebrow></p>
+      <h1 class="display mt-4 text-green">Page not found.</h1>
+      <p class="mt-8 max-w-xl text-xl">The page you are looking for does not exist or has moved.</p>
+      <div class="mt-10 flex flex-wrap gap-4">
+        <a href="/" class={buttonVariants({ size: 'lg' })}>Back to home</a>
+        <a href="/products" class={buttonVariants({ size: 'lg', variant: 'outline' })}>See products</a>
+      </div>
+    </div>
+  </section>
+</Layout>
