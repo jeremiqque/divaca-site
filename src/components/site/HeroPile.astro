@@ -1,0 +1,32 @@
+---
+import { Bell, BellRinging, CalendarBlank, SealCheck, Newspaper, IdentificationCard, FirstAid, SolarPanel, Stethoscope, Heartbeat, Trophy, UsersThree, ChartLineUp, Broadcast, ChatsCircle, Code, Rocket, GameController, GlobeHemisphereWest, Handshake } from '@phosphor-icons/react';
+type T = 'campus' | 'health' | 'play' | 'hub' | 'tech';
+const tone: Record<T, string> = { campus: 'bg-green text-white', health: 'bg-pistachio text-ink', play: 'bg-ink text-pistachio', hub: 'bg-mist text-green', tech: 'bg-forest text-white' };
+// [label, icon, product, x% centre, y px from bottom, rotation]
+const chips: [string, any, T, number, number, number][] = [
+  ['Official notice', SealCheck, 'campus', 7, -16, -6], ['Digital health card', IdentificationCard, 'health', 21, -8, 4], ['Tournament bracket', Trophy, 'play', 35, -18, -3],
+  ['Built for Africa', GlobeHemisphereWest, 'tech', 49, -6, 5], ['Exam timetable', CalendarBlank, 'campus', 63, -16, -5], ['Team management', UsersThree, 'play', 77, -8, 3], ['Visit recorded', Stethoscope, 'health', 91, -18, -4],
+  ['Urgent alerts', BellRinging, 'campus', 14, 34, 5], ['Offline and solar-ready', SolarPanel, 'health', 29, 40, -4], ['Real projects', Rocket, 'hub', 44, 32, 3], ['Performance stats', ChartLineUp, 'play', 58, 42, -6], ['Smart queue', FirstAid, 'health', 72, 34, 4], ['School news', Newspaper, 'campus', 86, 42, -3],
+  ['Live streaming', Broadcast, 'play', 22, 84, -5], ['Roles that fit', Code, 'hub', 38, 90, 4], ['Health rewards', Heartbeat, 'health', 52, 82, -3], ['Community', ChatsCircle, 'play', 67, 92, 6], ['Academic calendar', CalendarBlank, 'campus', 80, 84, -4],
+  ['Founding partner', Handshake, 'tech', 36, 130, -5], ['Verified by design', SealCheck, 'campus', 54, 140, 3], ['Esports and tech', GameController, 'hub', 68, 132, -6],
+];
+const mobile = [chips[0], chips[1], chips[2], chips[7], chips[8], chips[9], chips[13], chips[14], chips[15], chips[18]];
+---
+<div class="relative mt-6 hidden h-[290px] md:block" aria-hidden="true">
+  {chips.map(([label, I, t, x, y, r], i) => (
+    <div class="chip absolute" style={`left:${x}%;bottom:${y}px;--tx:-50%;--r:${r}deg;--i:${i};--bd:${8 + (i % 3) * 1.6}s`}>
+      <div class="chip-in flex items-center gap-2.5 whitespace-nowrap border border-line bg-white py-1.5 pr-4 pl-1.5 shadow-card">
+        <span class:list={['grid size-8 place-items-center', tone[t]]}><I size={16} weight="duotone" /></span>
+        <span class="text-sm font-semibold">{label}</span>
+      </div>
+    </div>
+  ))}
+</div>
+<div class="relative mt-10 flex h-40 flex-wrap content-end justify-center gap-2 overflow-hidden px-3 md:hidden" aria-hidden="true">
+  {mobile.map(([label, I, t, , , r], i) => (
+    <div class="chip flex items-center gap-2 whitespace-nowrap border border-line bg-white py-1 pr-3 pl-1 shadow-card" style={`--r:${r}deg;--i:${i}`}>
+      <span class:list={['grid size-6 place-items-center', tone[t]]}><I size={13} weight="duotone" /></span>
+      <span class="text-xs font-semibold">{label}</span>
+    </div>
+  ))}
+</div>

@@ -1,0 +1,32 @@
+---
+import { ArrowRight, ArrowUpRight, GraduationCap, Heartbeat, GameController } from '@phosphor-icons/react';
+import HeroPile from './HeroPile.astro';
+import { buttonVariants } from '@/components/ui/button';
+---
+<section class="rule-b relative overflow-hidden border-b border-line bg-[linear-gradient(180deg,#f7f6f1_0%,#f7f6f1_50%,#e4f2dc_100%)] pt-14 md:pt-20">
+  <div class="fog fog-a" aria-hidden="true"></div>
+  <div class="fog fog-b" aria-hidden="true"></div>
+  <canvas id="hero-field" class="hero-field absolute inset-x-0 top-0 h-[90%] w-full" aria-hidden="true"></canvas>
+  <div class="wrap relative text-center">
+    <p class="rise mx-auto inline-flex items-center gap-2.5 border border-line bg-white py-1.5 pr-4 pl-2 text-sm font-semibold shadow-field">
+      <span class="grid size-6 place-items-center bg-mist text-green"><GraduationCap size={14} weight="duotone" /></span>School
+      <ArrowRight size={12} weight="bold" class="text-muted" />
+      <span class="grid size-6 place-items-center bg-mist text-green"><Heartbeat size={14} weight="duotone" /></span>Health
+      <ArrowRight size={12} weight="bold" class="text-muted" />
+      <span class="grid size-6 place-items-center bg-mist text-green"><GameController size={14} weight="duotone" /></span>Play
+    </p>
+    <h1 class="display blur-in mx-auto mt-7 max-w-4xl" style="--d:1">Software that fixes real problems in <span class="text-green">health, school and</span> <span class="hl-wipe relative inline-block -rotate-1 bg-pistachio px-3 pb-1 text-ink shadow-field">play.</span></h1>
+    <p class="rise mx-auto mt-7 max-w-xl text-lg leading-snug" style="--d:2">
+      Five products from one team. Campus Update is already piloting with the Computer Science department at FOCIT.
+    </p>
+    <div class="rise mt-9 flex flex-wrap items-center justify-center gap-x-8 gap-y-4" style="--d:3">
+      <a href="#products" class={buttonVariants({ size: 'lg' })}>See the products <ArrowRight weight="bold" /></a>
+      <a href="/partners" class="font-semibold underline decoration-2 underline-offset-8 hover:text-green">Partner with us</a>
+    </div>
+    <a href="https://campusupdate.vercel.app/" target="_blank" rel="noopener noreferrer"
+      class="rise mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-muted hover:text-green" style="--d:4">
+      See it live: Campus Update <ArrowUpRight size={14} weight="bold" /><span class="sr-only">(opens in a new tab)</span>
+    </a>
+  </div>
+  <HeroPile />
+</section>
